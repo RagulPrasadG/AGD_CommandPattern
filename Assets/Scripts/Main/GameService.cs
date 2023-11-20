@@ -50,11 +50,12 @@ namespace Command.Main
             EventService = new EventService();
             ActionService = new ActionService();
             InputService = new InputService();
-            BattleService = new BattleService(battleScriptableObjects);
             PlayerService = new PlayerService();
             replayService = new ReplayService();
-            uiService.Init(battleScriptableObjects.Count);
             CommandInvoker = new CommandInvoker();
+            BattleService = new BattleService(battleScriptableObjects);
+            uiService.Init(battleScriptableObjects.Count);
+
         }
 
         private void Update() => InputService.UpdateInputService();

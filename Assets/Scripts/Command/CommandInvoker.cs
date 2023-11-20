@@ -13,6 +13,11 @@ namespace Command.Commands
             RegisterCommand(commandToProcess);
         }
 
+        public CommandInvoker()
+        {
+            SubscribeToEvents();
+        }
+
         public void ExecuteCommand(ICommand commandToExecute) => commandToExecute.Execute();
 
         public void RegisterCommand(ICommand commandToRegister) => commandRegistry.Push(commandToRegister);
@@ -24,6 +29,17 @@ namespace Command.Commands
         }
 
         private bool RegistryEmpty() => commandRegistry.Count == 0;
+
+        private void SubscribeToEvents()
+        {
+            GameService.Instance.EventService.OnReplayButtonClicked.AddListener(SetReplayStack);
+        }
+
+        public void SetReplayStack()
+        {
+            GameService.Instance.replayService.SetCommandStack(commandRegistry);
+            commandRegistry.Clear();
+        }
 
         private bool CommandBelongsToActivePlayer() => (commandRegistry.Peek() as UnitCommand).commandData.ActorPlayerID == GameService.Instance.PlayerService.ActivePlayerID;
     }
