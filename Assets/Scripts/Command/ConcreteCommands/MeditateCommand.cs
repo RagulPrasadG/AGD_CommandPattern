@@ -14,6 +14,16 @@ namespace Command.Commands
 
         public override void Execute() => GameService.Instance.ActionService.GetActionByType(CommandType.Meditate).PerformAction(actorUnit, targetUnit, willHitTarget);
 
+        public override void Undo()
+        {
+            if(willHitTarget)
+            {
+                var healthToDecrease = (int)(targetUnit.CurrentMaxHealth * 0.2f);
+                targetUnit.CurrentMaxHealth -= healthToDecrease;
+                targetUnit.RestoreHealth(healthToDecrease);
+            }
+        }
+
         public override bool WillHitTarget() => true;
     }
 }
