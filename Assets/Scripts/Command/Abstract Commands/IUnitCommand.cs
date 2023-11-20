@@ -14,7 +14,7 @@ namespace Command.Commands
         public abstract bool WillHitTarget();
 
         public void SetActorUnit(UnitController actorUnitController) =>actorUnit = actorUnitController;
-        public void SerTargetUnit(UnitController targetUnitController) => targetUnit = targetUnitController;
+        public void SetTargetUnit(UnitController targetUnitController) => targetUnit = targetUnitController;
 
     }
 
